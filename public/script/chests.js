@@ -56,7 +56,7 @@ function canMeltThings() {
 }
 
 function canFly() {
-    return trackerData.items.flute;
+    return trackerData.items.flute || trackerData.items.shovelflute === 2 || trackerData.items.shovelflute === 3;
 }
 
 function canSpinSpeed() {
@@ -64,7 +64,7 @@ function canSpinSpeed() {
 }
 
 function canShootArrows() {
-    return trackerData.items.bow;
+    return trackerData.items.bow || trackerData.items.bowarrows === 1 || trackerData.items.bowarrows === 3;
 }
 
 function canBlockLasers() {
@@ -73,6 +73,18 @@ function canBlockLasers() {
 
 function canExtendMagic() {
     return trackerData.items.mpupgrade >= 1 || trackerData.items.bottle >= 1;
+}
+
+function canDig() {
+    return trackerData.items.shovel || trackerData.items.shovelflute === 1 || trackerData.items.shovelflute === 3;
+}
+
+function canGiveMushroom() {
+    return trackerData.items.mushroom || trackerData.items.mushroompowder === 1 || trackerData.items.mushroompowder === 3;
+}
+
+function canPowder() {
+    return trackerData.items.powder || trackerData.items.mushroompowder === 2 || trackerData.items.mushroompowder === 3;
 }
 
 function glitchedLinkInDarkWorld() {
@@ -245,7 +257,7 @@ dungeons[0] = {
     image: "boss02.png",
     isBeatable: function() {
         const availability = new Availability();
-        if (trackerData.items.bow) {
+        if (canShootArrows()) {
             if (trackerData.items.lantern) {
                 availability.glitchless = 'available';
             }
@@ -258,7 +270,7 @@ dungeons[0] = {
     canGetChest: function () {
         const availability = new Availability();
         if (trackerData.items.lantern) {
-            if (trackerData.items.bow) {
+            if (canShootArrows()) {
                 availability.glitchless = 'available';
             }
             else if (trackerData.dungeonchests[0] >= 2) {
@@ -303,7 +315,7 @@ dungeons[1] = {
     canHurtBoss: function() {
         return trackerData.items.sword
                 || trackerData.items.hammer
-                || trackerData.items.bow
+                || canShootArrows()
                 || trackerData.items.firerod
                 || trackerData.items.icerod
                 || trackerData.items.byrna
@@ -610,7 +622,7 @@ dungeons[3] = {
     },
     isBeatable: function () {
         const availability = new Availability();
-        if (trackerData.items.hammer && trackerData.items.bow) {
+        if (trackerData.items.hammer && canShootArrows()) {
             if (this.canEnter('glitchless', false, false) && trackerData.items.lantern) {
                 availability.glitchless = 'available';
             }
@@ -653,7 +665,7 @@ dungeons[3] = {
     canGetChest: function () {
         const availability = new Availability();
         if (this.canEnter('glitchless', false, false)) {
-            if (trackerData.items.bow && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
+            if (canShootArrows() && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
                 if (trackerData.items.lantern) {
                     availability.glitchless = 'available';
                 }
@@ -675,7 +687,7 @@ dungeons[3] = {
             availability.glitchless = 'glitchagahnim';
         }
         if (this.canEnter('owGlitches', false, false)) {
-            if (trackerData.items.bow && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
+            if (canShootArrows() && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
                 if (trackerData.items.lantern) {
                     availability.owGlitches = 'available';
                 }
@@ -691,7 +703,7 @@ dungeons[3] = {
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
-            if (trackerData.items.bow && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
+            if (canShootArrows() && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
                 availability.owGlitches = 'glitchavailable';
             }
             else {
@@ -705,7 +717,7 @@ dungeons[3] = {
             availability.owGlitches = 'glitchagahnim';
         }
         if (this.canEnter('majorGlitches', false, false)) {
-            if (trackerData.items.bow && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
+            if (canShootArrows() && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
                 if (trackerData.items.lantern) {
                     availability.majorGlitches = 'available';
                 }
@@ -721,7 +733,7 @@ dungeons[3] = {
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
-            if (trackerData.items.bow && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
+            if (canShootArrows() && (trackerData.dungeonchests[3] >= 2 || trackerData.items.hammer)) {
                 availability.majorGlitches = 'glitchavailable';
             }
             else {
@@ -789,7 +801,7 @@ dungeons[4] = {
                 && trackerData.items.flippers
                 && (trackerData.items.sword >= 1
                         || trackerData.items.hammer
-                        || ((trackerData.items.bow || canExtendMagic())
+                        || ((canShootArrows() || canExtendMagic())
                                 && (trackerData.items.firerod || trackerData.items.icerod)))) {
             if ((this.canEnter('majorGlitches', false, false))
                     && (trackerData.items.hammer || dungeons[8].canEnter('majorGlitches', false, false))) {
@@ -1418,7 +1430,7 @@ dungeons[8] = {
         }
     },
     canHurtBoss: function () {
-        return trackerData.items.sword >= 1 || trackerData.items.hammer || trackerData.items.bow;
+        return trackerData.items.sword >= 1 || trackerData.items.hammer || canShootArrows();
     },
     isBeatable: function () {
         const availability = new Availability();
@@ -2097,7 +2109,7 @@ dungeons[10] = {
     isBeatable: function () {
         const availability = new Availability();
         if (trackerData.items.hookshot
-                && trackerData.items.bow
+                && canShootArrows()
                 && canLightTorches()
                 && (trackerData.items.hammer || trackerData.items.sword >= 1)) {
             if (this.canEnter('glitchless', false)) {
@@ -2198,7 +2210,7 @@ dungeons[10] = {
             bigKeyGuaranteed = true;
         }
         // Mini Helmasaur Room x2 + Pre-Moldorm Chest
-        if (trackerData.items.bow && canLightTorches()) {
+        if (canShootArrows() && canLightTorches()) {
             if (bigKeyGuaranteed) {
                 minAvailableChests += 3;
             }
@@ -2208,7 +2220,7 @@ dungeons[10] = {
         }
         // Moldorm Chest
         if (trackerData.items.hookshot
-                && trackerData.items.bow
+                && canShootArrows()
                 && canLightTorches()
                 && (trackerData.items.hammer || trackerData.items.sword >= 1)) {
             if (bigKeyGuaranteed) {
@@ -3289,7 +3301,7 @@ chests[35] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.items.mushroom) {
+        if (canGiveMushroom()) {
             availability.glitchless = 'available';
         }
         return availability;
@@ -3969,7 +3981,7 @@ chests[54] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.items.shovel) {
+        if (canDig()) {
             availability.glitchless = 'available';
         }
         return availability;
@@ -4033,18 +4045,28 @@ chests[59] = {
         const availability = new Availability();
         if (trackerData.items.hammer
                 || (trackerData.items.moonpearl && trackerData.items.mirror && canLiftDarkRocks())) {
-            if (trackerData.items.powder) {
+            if (canPowder()) {
                 availability.glitchless = 'available';
             }
-            else if (trackerData.items.somaria && trackerData.items.mushroom) {
+            else if (trackerData.items.somaria && canGiveMushroom()) {
                 availability.glitchless = 'glitchavailable';
             }
         }
-        if (trackerData.items.powder && trackerData.items.boots) {
-            availability.owGlitches = 'available';
+        if (trackerData.items.boots) {
+            if (canPowder()) {
+                availability.owGlitches = 'available';
+            }
+            else if (trackerData.items.somaria && canGiveMushroom()) {
+                availability.owGlitches = 'glitchavailable';
+            }
         }
-        else if (trackerData.items.powder && trackerData.items.mirror) {
-            availability.majorGlitches = 'available';
+        if (trackerData.items.mirror) {
+            if (canPowder()) {
+                availability.majorGlitches = 'available';
+            }
+            else if (trackerData.items.somaria && canGiveMushroom()) {
+                availability.majorGlitches = 'glitchavailable';
+            }
         }
         return availability;
     }
