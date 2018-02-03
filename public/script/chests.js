@@ -2265,6 +2265,45 @@ dungeons[10] = {
     }
 };
 
+dungeons[11] = {
+    name: "Castle Tower",
+    label: "CT",
+    x: "24.9%",
+    y: "54.1%",
+    image: "boss112.png",
+    canEnter: function (logic, allowOutOfLogicGlitches) {
+        return canGoBeatAgahnim1(allowOutOfLogicGlitches);
+    },
+    isBeatable: function() {
+        const availability = new Availability();
+        if (this.canEnter('glitchless', false)) {
+            availability.glitchless = 'available';
+            availability.owGlitches = 'available';
+            availability.majorGlitches = 'available';
+        }
+        else if (this.canEnter('glitchless', true)) {
+            availability.glitchless = 'glitchavailable';
+            availability.owGlitches = 'glitchavailable';
+            availability.majorGlitches = 'glitchavailable';
+        }
+        return availability;
+    },
+    canGetChest: function() {
+        const availability = new Availability();
+        if (this.canEnter('glitchless', false)) {
+            availability.glitchless = 'available';
+            availability.owGlitches = 'available';
+            availability.majorGlitches = 'available';
+        }
+        else if (this.canEnter('glitchless', true)) {
+            availability.glitchless = 'glitchavailable';
+            availability.owGlitches = 'glitchavailable';
+            availability.majorGlitches = 'glitchavailable';
+        }
+        return availability;
+    }
+};
+
 //define overworld chests
 const chests = [];
 

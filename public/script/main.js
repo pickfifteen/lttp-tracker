@@ -721,7 +721,7 @@ Vue.component('tracker-cell', {
     },
     bigKeyImage: function() {
       if(this.bossNum && this.trackerOptions && this.trackerOptions.showbigkeys && this.trackerData.bigkeys) {
-        if(this.trackerData.bigkeys[this.bossNum]) {
+        if(this.trackerData.bigkeys[this.bossNum] && this.bossNum < 11) {
           return "url(/images/bigkey.png)";
         } else {
           return "url(/images/nothing.png)";
@@ -740,7 +740,7 @@ Vue.component('tracker-cell', {
       return null;
     },
     prizeImage: function() {
-      if(this.bossNum && this.bossNum !== "10" && this.trackerOptions && this.trackerOptions.showprizes) {
+      if(this.bossNum && this.bossNum < 10 && this.trackerOptions && this.trackerOptions.showprizes) {
         return "url(/images/dungeon" + this.trackerData.prizes[this.bossNum] + ".png)";
       }
       return null;
