@@ -48,7 +48,7 @@ var defaultItemGrid = [
         "boss0",
         "boss1",
         "boss2",
-        "agahnim",
+        "boss11",
         "blank",
     ],
 ];
