@@ -530,12 +530,15 @@ function enterPasscode() {
         if(error) {
             console.log("Did not add to editors");
             console.log(error);
+            document.getElementById("passcodeFeedback").innerHTML="Invalid!";
         }
         else {
             console.log("Added to editors successfully");
+            document.getElementById("passcodeFeedback").innerHTML="Success";
         }
     });
 }
+
 
 function createRoom() {
     var editors = {};

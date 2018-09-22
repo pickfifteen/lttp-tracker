@@ -98,7 +98,7 @@
             </fieldset>
             <fieldset id="roomControls">
                 <legend>Room Controls</legend>
-                <input type="text" name="entryPasscode" id="entryPasscodeInput" />
+                <input type="text" name="entryPasscode" id="entryPasscodeInput" /> <span id="passcodeFeedback"></span>
                 <button type="button" name="enterPasscode" id="enterPasscodeButton" onclick="enterPasscode()">Enter Passcode</button>
                 <div id="editorControls">
                     <button type="button" name="resetRoom" id="pushConfigButton" onclick="confirmSaveConfigToFirebase()">Push Configuration</button>
@@ -153,4 +153,3 @@
         </script>
     </body>
 </html>
-
